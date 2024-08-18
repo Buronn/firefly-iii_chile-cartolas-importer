@@ -17,7 +17,7 @@
 
 1. Clona este repositorio en tu máquina local:
    ```bash
-   git clone https://github.com/tuusuario/firefly-iii-chile-cartolas-importer.git
+   git clone https://github.com/Buronn/firefly-iii-chile-cartolas-importer.git
    ```
 2. Crea los archivos de entorno `.backend.env`, `.db.env`, `.env`, y `.importer.env` basándote en los archivos de ejemplo proporcionados:
    ```bash
