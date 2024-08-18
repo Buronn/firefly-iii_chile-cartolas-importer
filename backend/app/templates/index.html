@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
+        .form-control,
+        .btn,
+        .custom-select,
+        .form-label {
+            background-color: #495057;
+            color: #f8f9fa;
+            border: 1px solid #ced4da;
+        }
+
+        .form-control:focus,
+        .custom-select:focus,
+        .btn:focus {
+            background-color: #495057;
+            color: #f8f9fa;
+            border-color: #80bdff;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            margin-bottom: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Subir Archivos Bancarios</h1>
+        <form method="POST" enctype="multipart/form-data" class="mt-4">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="token">API Token de Firefly:</label>
+                    <input type="text" class="form-control" id="token" name="token" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="bank">Banco:</label>
+                    <select class="custom-select" id="bank" name="bank" required onchange="updateFileType()">
+                        <option value="">Seleccione un banco</option>
+                        <option value="santander">Banco Santander</option>
+                        <option value="estado">Banco Estado</option>
+                        <option value="chile">Banco de Chile</option>
+                        <option value="mach">MACH</option>
+                    </select>
+                </div>
+            </div>
+            <p>Puedes obtener el token en este <a href="{{url}}profile" target="_blank" class="text-info">link</a> en la
+                pestaña de OAuth.</p>
+            <div id="yearDiv" class="form-group">
+                <label for="year">Año:</label>
+                <input type="text" class="form-control" id="year" name="year" placeholder="Ingrese el año">
+            </div>
+            <div id="fileUpload" class="form-group">
+                <label for="file">Subir cartola:</label>
+                <input type="file" class="form-control" id="file" name="file" accept=".pdf,.xlsx" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        function updateFileType() {
+            const bank = document.getElementById('bank').value;
+            const fileInput = document.getElementById('file');
+            const fileUploadDiv = document.getElementById('fileUpload');
+            const yearDiv = document.getElementById('yearDiv');
+
+            if (bank === 'santander' || bank === 'mach') {
+                fileInput.accept = '.pdf';
+                fileUploadDiv.style.display = 'block';
+            } else if (bank === 'estado' || bank === 'chile') {
+                fileInput.accept = '.xlsx,.xls';
+                fileUploadDiv.style.display = 'block';
+            } else {
+                fileUploadDiv.style.display = 'none';
+            }
+
+            if (bank === 'santander' || bank === 'estado' || bank === 'chile') {
+                yearDiv.style.display = 'block';
+            } else {
+                yearDiv.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

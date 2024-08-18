@@ -1,0 +1,8 @@
+.backend.env
+.db.env
+.importer.env
+.env
+
+compose.yaml
+
+__pycache__/
